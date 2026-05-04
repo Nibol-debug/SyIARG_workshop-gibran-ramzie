@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateUsersTable extends Migration
+class CreateRolesTable extends Migration
 {
     public function up()
     {
@@ -15,33 +15,23 @@ class CreateUsersTable extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'username' => [
+            'name' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 50,
-                'unique'     => true,
+                'constraint' => 100,
             ],
-            'email' => [
+            'slug' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 100,
                 'unique'     => true,
             ],
-            'password_hash' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 255,
-            ],
-            'full_name' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 100,
-                'null'       => true,
+            'description' => [
+                'type' => 'TEXT',
+                'null' => true,
             ],
             'is_active' => [
                 'type'       => 'TINYINT',
                 'constraint' => 1,
                 'default'    => 1,
-            ],
-            'last_login_at' => [
-                'type' => 'DATETIME',
-                'null' => true,
             ],
             'created_at' => [
                 'type' => 'DATETIME',
@@ -58,13 +48,12 @@ class CreateUsersTable extends Migration
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->addKey('username');
-        $this->forge->addKey('email');
-        $this->forge->createTable('users', true);
+        $this->forge->addKey('slug');
+        $this->forge->createTable('roles', true);
     }
 
     public function down()
     {
-        $this->forge->dropTable('users', true);
+        $this->forge->dropTable('roles', true);
     }
 }
