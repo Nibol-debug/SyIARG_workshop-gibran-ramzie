@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateUsersTable extends Migration
+class CreatePermissionsTable extends Migration
 {
     public function up()
     {
@@ -15,33 +15,27 @@ class CreateUsersTable extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'username' => [
+            'kode' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 100,
+                'unique'     => true,
+            ],
+            'modul' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 50,
-                'unique'     => true,
             ],
-            'email' => [
+            'aksi' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 100,
-                'unique'     => true,
+                'constraint' => 50,
             ],
-            'password_hash' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 255,
-            ],
-            'full_name' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 100,
-                'null'       => true,
+            'deskripsi' => [
+                'type' => 'TEXT',
+                'null' => true,
             ],
             'is_active' => [
                 'type'       => 'TINYINT',
                 'constraint' => 1,
                 'default'    => 1,
-            ],
-            'last_login_at' => [
-                'type' => 'DATETIME',
-                'null' => true,
             ],
             'created_at' => [
                 'type' => 'DATETIME',
@@ -51,20 +45,16 @@ class CreateUsersTable extends Migration
                 'type' => 'DATETIME',
                 'null' => true,
             ],
-            'deleted_at' => [
-                'type' => 'DATETIME',
-                'null' => true,
-            ],
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->addKey('username');
-        $this->forge->addKey('email');
-        $this->forge->createTable('users', true);
+        $this->forge->addKey('kode');
+        $this->forge->addKey('modul');
+        $this->forge->createTable('permissions', true);
     }
 
     public function down()
     {
-        $this->forge->dropTable('users', true);
+        $this->forge->dropTable('permissions', true);
     }
 }

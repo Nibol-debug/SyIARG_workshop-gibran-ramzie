@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateUsersTable extends Migration
+class CreateKategoriPenilaianTable extends Migration
 {
     public function up()
     {
@@ -15,33 +15,33 @@ class CreateUsersTable extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'username' => [
+            'nama_kategori' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 50,
-                'unique'     => true,
+                'constraint' => 100,
             ],
-            'email' => [
+            'slug' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 100,
                 'unique'     => true,
             ],
-            'password_hash' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 255,
+            'deskripsi' => [
+                'type' => 'TEXT',
+                'null' => true,
             ],
-            'full_name' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 100,
-                'null'       => true,
+            'bobot_persen' => [
+                'type'       => 'DECIMAL',
+                'constraint' => '5,2',
+                'default'    => 0,
             ],
             'is_active' => [
                 'type'       => 'TINYINT',
                 'constraint' => 1,
                 'default'    => 1,
             ],
-            'last_login_at' => [
-                'type' => 'DATETIME',
-                'null' => true,
+            'urutan' => [
+                'type'       => 'INT',
+                'constraint' => 3,
+                'default'    => 0,
             ],
             'created_at' => [
                 'type' => 'DATETIME',
@@ -51,20 +51,15 @@ class CreateUsersTable extends Migration
                 'type' => 'DATETIME',
                 'null' => true,
             ],
-            'deleted_at' => [
-                'type' => 'DATETIME',
-                'null' => true,
-            ],
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->addKey('username');
-        $this->forge->addKey('email');
-        $this->forge->createTable('users', true);
+        $this->forge->addKey('slug');
+        $this->forge->createTable('kategori_penilaian', true);
     }
 
     public function down()
     {
-        $this->forge->dropTable('users', true);
+        $this->forge->dropTable('kategori_penilaian', true);
     }
 }
